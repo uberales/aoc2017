@@ -63,4 +63,4 @@ def GetDxDy(grid, x, y):
 
 GetDxDy(grid, 0, 0)
         
-        
+# this solution is incomplete
