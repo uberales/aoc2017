@@ -33,18 +33,14 @@ def main():
     
     print 'task 1'
     
-#    for i in range(40000000):
-#        prev_a = Generator(factor_a, prev_a)
-#        prev_b = Generator(factor_b, prev_b)
-#        result = (prev_b - prev_a) % judge
-#        if result == 0:
-#            matches += 1
-#            print i, matches
-#        elif i % 100000 == 0:
-#            print i
-#    
-#    print matches
-#    
+    for i in range(40000000):
+        prev_a = Generator(factor_a, prev_a)
+        prev_b = Generator(factor_b, prev_b)
+        result = (prev_b - prev_a) % judge
+        if result == 0:
+            matches += 1
+    
+    print matches
     
     print 'task 2'
     
@@ -60,9 +56,7 @@ def main():
         result = (prev_b - prev_a) % judge
         if result == 0:
             matches += 1
-            print i, matches
-        elif i % 100000 == 0:
-            print i
+
     print matches
         
 if __name__ == "__main__":
