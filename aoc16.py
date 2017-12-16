@@ -30,8 +30,8 @@ def main():
 
     dance = []
 
-    str = 'abcdefghijklmnop'
-    letters = list('abcdefghijklmnop')
+    letters_str = 'abcdefghijklmnop'
+    letters = list(letters_str)
 
     with open(input_file, 'r') as f:
         dance = f.readline().strip().split(',')
@@ -44,7 +44,7 @@ def main():
         letters = Dance(letters, dance)
         period += 1
         this_str = ''.join(letters)
-        if this_str == str:
+        if this_str == letters_str:
             break
     print period
 
