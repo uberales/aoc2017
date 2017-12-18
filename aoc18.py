@@ -68,7 +68,7 @@ def Step(p_id, instructions, registers, current_pos, send_cnt, buffer_in, buffer
     instruction = instructions[current_pos]
     
     code = instruction[0]
-    print "\t".join([str(e) for e in [p_id, instruction, registers, current_pos]])
+    #print "\t".join([str(e) for e in [p_id, instruction, registers, current_pos]])
 
     current_pos += 1
     waiting = False
@@ -120,23 +120,23 @@ def Communicate(instructions):
     current_pos_b = 0
     buffer_in = []
     buffer_out = []
-    send_cnt_a = 0
+    send_cnt_b = 0
 
     i = 0
     while True:
-        step_a = Step("a", instructions, registers_a, current_pos_a, send_cnt_a, buffer_in, buffer_out)
-        step_b = Step("b", instructions, registers_b, current_pos_b, 0, buffer_out, buffer_in)
+        step_a = Step("a", instructions, registers_a, current_pos_a, 0, buffer_in, buffer_out)
+        step_b = Step("b", instructions, registers_b, current_pos_b, send_cnt_b, buffer_out, buffer_in)
         
         if step_a[2] and step_b[2]:
-            return step_a[1]
+            return step_b[1]
         
         current_pos_a = step_a[0]
         current_pos_b = step_b[0]
         
-        send_cnt_a = step_a[1]
+        send_cnt_b = step_b[1]
         
         i += 1
-        print
+
 
 def main():
     input_file = 'aoc18-input.txt'
