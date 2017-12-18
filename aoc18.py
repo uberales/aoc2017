@@ -19,8 +19,8 @@ def GetValue(registers, index_or_value):
         if index_or_value in registers:
             val = registers[index_or_value]
         else:
-            registers[index_or_value] = 0
-            return 0
+            registers[index_or_value] = long(0)
+            return long(0)
     return val
     
 
@@ -69,46 +69,43 @@ def Step(p_id, instructions, registers, current_pos, send_cnt, buffer_in, buffer
     
     code = instruction[0]
     print "\t".join([str(e) for e in [p_id, instruction, registers, current_pos]])
-    
+
     current_pos += 1
     waiting = False
     
-    
+
     if code == 'snd':
         buffer_out.append(GetValue(registers, instruction[1]))
         send_cnt += 1
     elif code == 'set':
         val = GetValue(registers, instruction[2])
-        if not instruction[1] in registers: registers[instruction[1]] = 0
+        if not instruction[1] in registers: registers[instruction[1]] = long(0)
         registers[instruction[1]] = val
     elif code == 'add':
         val = GetValue(registers, instruction[2])
-        if not instruction[1] in registers: registers[instruction[1]] = 0
+        if not instruction[1] in registers: registers[instruction[1]] = long(0)
         registers[instruction[1]] += val
     elif code == 'mul':
         val = GetValue(registers, instruction[2])
-        if not instruction[1] in registers: registers[instruction[1]] = 0
+        if not instruction[1] in registers: registers[instruction[1]] = long(0)
         registers[instruction[1]] = registers[instruction[1]] * val
     elif code == 'mod':
         val = GetValue(registers, instruction[2])
-        if not instruction[1] in registers: registers[instruction[1]] = 0
+        if not instruction[1] in registers: registers[instruction[1]] = long(0)
         registers[instruction[1]] = registers[instruction[1]] % val
     elif code == 'rcv':
         if len(buffer_in) == 0:
             current_pos -= 1
             waiting = True
         else:
-            if not instruction[1] in registers: registers[instruction[1]] = 0
+            if not instruction[1] in registers: registers[instruction[1]] = long(0)
             registers[instruction[1]] = buffer_in.pop(0)
         
     elif code == 'jgz':
         val_x = GetValue(registers, instruction[1])
         val_y = GetValue(registers, instruction[2])
-        print val_x, val_y
         if val_x > 0:
             current_pos += val_y - 1
-            print 'jumping'
-        pass
             
     if current_pos < 0 or current_pos >= len(instructions):
         print "Terminated by jumping out"
@@ -124,12 +121,11 @@ def Communicate(instructions):
     buffer_in = []
     buffer_out = []
     send_cnt_a = 0
-    send_cnt_b = 0
-    
+
     i = 0
     while True:
         step_a = Step("a", instructions, registers_a, current_pos_a, send_cnt_a, buffer_in, buffer_out)
-        step_b = Step("b", instructions, registers_b, current_pos_b, send_cnt_b, buffer_out, buffer_in)
+        step_b = Step("b", instructions, registers_b, current_pos_b, 0, buffer_out, buffer_in)
         
         if step_a[2] and step_b[2]:
             return step_a[1]
@@ -138,11 +134,10 @@ def Communicate(instructions):
         current_pos_b = step_b[0]
         
         send_cnt_a = step_a[1]
-        send_cnt_b = step_b[1]
         
         i += 1
-        print "\n"
-    
+        print
+
 def main():
     input_file = 'aoc18-input.txt'
     instructions = []
@@ -153,7 +148,7 @@ def main():
             l = l.strip().split(' ')
             i = None            
             if len(l) == 3:
-                i = (l[0], l[1], int(l[2]) if IsInt(l[2]) else l[2])
+                i = (l[0], int(l[1]) if IsInt(l[1]) else l[1], int(l[2]) if IsInt(l[2]) else l[2])
             else:
                 i = (l[0], int(l[1]) if IsInt(l[1]) else l[1])
             instructions.append(i)
