@@ -43,19 +43,11 @@ def main():
     with open(input_file, 'r') as f:
         lines = f.readlines()
         i = 0
-        row_l = 0
         for l in lines:
-            m_l = [' ']
-            m_l.extend(list(l.replace('\n', '').replace('\r', '')))
-            m_l.append(' ')
-            if i == 0:
-                row_l = len(m_l)
-                maze.append([' '] * row_l)
-            i += 1
+            m_l = list(l.replace('\n', '').replace('\r', ''))
             maze.append(m_l)
-        maze.append([' '] * row_l)
-
-    start_r = 1
+            
+    start_r = 0
     start_c = 0
     
     for i in range(len(maze[start_r])):
