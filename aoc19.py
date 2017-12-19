@@ -3,17 +3,18 @@
 @author: podolnik
 """
 
-def M(maze, loc):
-    return maze[loc[0]][loc[1]]
-
 def Next(maze, loc, loc_prev, letters):
     alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-    maze_e = M(maze, loc)
+
+    maze_e = maze[loc[0]][loc[1]]
     top = (loc[0] - 1, loc[1])
     bottom = (loc[0] + 1, loc[1])
     left = (loc[0], loc[1] - 1)
     right = (loc[0], loc[1] + 1)
 
+    directions = [top, left, bottom, right]
+    start_i = directions.index(loc_prev)
+    dir_count = len(directions)
     print loc, '(', maze_e, ')'
 
     if maze_e in alphabet:
@@ -22,21 +23,12 @@ def Next(maze, loc, loc_prev, letters):
     if maze_e == ' ':
         raise Exception('End found')
     if maze_e == '|' or maze_e == '-' or maze_e in alphabet:
-        if loc_prev == top:
-            return bottom
-        elif loc_prev == bottom:
-            return top
-        elif loc_prev == left:
-            return right
-        elif loc_prev == right:
-            return left
+        return directions[(start_i  + 2) % dir_count]
     elif maze_e == '+':
-        directions = [top, left, bottom, right]
-        start_i = directions.index(loc_prev)
-        for i in range(len(directions) - 1):
-            j = (i + start_i + 1) % len(directions)
+        for i in range(dir_count - 1):
+            j = (i + start_i + 1) % dir_count
             loc_j = directions[j]
-            e_j = M(maze, loc_j)
+            e_j = maze[loc_j[0]][loc_j[1]]
             if e_j != ' ':
                 return loc_j
         raise Exception('End found')
