@@ -152,10 +152,7 @@ def main():
             else:
                 i = (l[0], int(l[1]) if IsInt(l[1]) else l[1])
             instructions.append(i)
-    
-    print instructions
-    print len(instructions)
-    
+        
     task_a = Play(instructions)
     print task_a
     
