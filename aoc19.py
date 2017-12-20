@@ -12,7 +12,7 @@ def Next(maze, loc, loc_prev, letters):
     left = (loc[0], loc[1] - 1)
     right = (loc[0], loc[1] + 1)
 
-    directions = [top, left, bottom, right]
+    directions = [top, right, bottom, left]
     start_i = directions.index(loc_prev)
     dir_count = len(directions)
     print loc, '(', maze_e, ')'
@@ -57,11 +57,11 @@ def main():
     
     print 'start', start_r, start_c
 
-
     loc = (start_r, start_c)
     loc_prev = (start_r - 1, start_c)
     letters = []
     count = 0
+    
     while True:
         try:
             loc_next = Next(maze, loc, loc_prev, letters)
@@ -71,9 +71,9 @@ def main():
         except Exception, e:
             print e
             break
+    
     print ''.join(letters)
     print count
-
 
 if __name__ == "__main__":
     main()
