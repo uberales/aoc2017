@@ -31,7 +31,6 @@ def Collide(particles):
         if not position in multiples:
             new_particles.append(p)
         
-    print len(particles)
     return new_particles
         
 def main():
@@ -60,6 +59,8 @@ def main():
     for i in range(10000):
         Move(particles)
         particles = Collide(particles)
+    
+    print len(particles)
         
 if __name__ == "__main__":
     main()
