@@ -13,7 +13,6 @@ def Move(particles):
         p["v"] = p["v"] + p["a"]
         p["p"] = p["p"] + p["v"]
         p["d"] = sum([abs(n) for n in p["p"]])
-    particles.sort(key=lambda p: p["d"])
 
 def Collide(particles):
     positions = [(tuple(p["p"])) for p in particles]
