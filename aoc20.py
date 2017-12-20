@@ -54,13 +54,13 @@ def main():
            i += 1
 
     particles.sort(key = lambda p: sum([abs(n) for n in p["a"]]))
-    print particles[0]
+    print 'closest:', particles[0]["i"]
 
-    for i in range(10000):
+    for i in range(1000):
         Move(particles)
         particles = Collide(particles)
     
-    print len(particles)
+    print 'after 1000 steps:', len(particles)
         
 if __name__ == "__main__":
     main()
