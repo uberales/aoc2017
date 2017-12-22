@@ -39,7 +39,7 @@ def FlipLR(pattern):
 
     return GetPattern(new_grid)
 
-def FlipD(pattern):
+def FlipD1(pattern):
     grid =  GetGrid(pattern)
     dim = len(grid)
     new_grid = NewGrid(dim)
@@ -78,7 +78,7 @@ def AddFlipped(rules, pattern_in, pattern_out):
     AddRule(rules, pattern, pattern_out)
     pattern = FlipLR(pattern_in)
     AddRule(rules, pattern, pattern_out)
-    pattern = FlipD(pattern_in)
+    pattern = FlipD1(pattern_in)
     AddRule(rules, pattern, pattern_out)
     pattern = FlipD2(pattern_in)
     AddRule(rules, pattern, pattern_out)
@@ -152,7 +152,7 @@ def main():
         AddFlipped(all_rules, pattern, pattern_out)
 
     input_pattern = '.#./..#/###'
-    
+        
     game_grid = FractalArt(input_pattern, all_rules, 5)
     crosses = CountCrosses(game_grid)    
     print crosses
