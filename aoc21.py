@@ -6,10 +6,7 @@
 import numpy as np
 
 def GetGrid(pattern):
-    rows = pattern.split("/")
-    grid = []
-    for r in rows:
-        grid.append(list(r))
+    grid = [list(r) for r in pattern.split("/")]
     return grid
 
 def GetPattern(grid):
@@ -17,9 +14,7 @@ def GetPattern(grid):
     return pattern
 
 def NewGrid(dim):
-    new_grid = []
-    for i in range(dim):
-        new_grid.append([''] * dim)
+    new_grid = [[''] * dim for i in range(dim)]
     return new_grid
 
 def FlipUD(pattern):
