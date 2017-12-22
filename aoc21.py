@@ -90,31 +90,27 @@ def FractalArt(input_pattern, rules, iterations):
     game_grid = np.array(GetGrid(input_pattern))
 
     for i in range(iterations):
-        pattern_grid = []
         grid_dim = len(game_grid)
         
         step = 3
         if grid_dim % 2 == 0:
             step = 2
+        
+        new_dim = (step + 1) * (grid_dim / step)
+        new_grid = NewGrid(new_dim)
             
         for r in range(0, grid_dim, step):
-            p_row = []
             for c in range(0, grid_dim, step):
-                sub_grid = game_grid[r:r + step,c:c + step]
-                p_row.append(GetPattern(sub_grid))
-            pattern_grid.append(p_row)
-
-        patt_dim = len(pattern_grid)
-        new_grid = NewGrid((step + 1) * patt_dim)
-
-        for r in range(patt_dim):
-            for c in range(patt_dim):
-                grid_transformed = GetGrid(rules[pattern_grid[r][c]])
-                t_dim = len(grid_transformed)
-                for r_t in range(t_dim):
-                    for c_t in range(t_dim):
-                        r_g = r * t_dim + r_t
-                        c_g = c * t_dim + c_t
+                sub_grid = game_grid[r:r + step, c:c + step]
+                sub_pattern = GetPattern(sub_grid)
+                
+                grid_transformed = GetGrid(rules[sub_pattern])
+                t_size = len(grid_transformed)
+                
+                for r_t in range(t_size):
+                    for c_t in range(t_size):
+                        r_g = (r / step) * t_size + r_t
+                        c_g = (c / step) * t_size + c_t
                         new_grid[r_g][c_g] = grid_transformed[r_t][c_t]
 
         game_grid = np.array(new_grid)
