@@ -192,6 +192,8 @@ def Play2(registers, instructions):
     total_record = []
     history = []
 
+    count = 0
+
     while True:
         instruction = instructions[current_pos]
 
@@ -237,6 +239,12 @@ def Play2(registers, instructions):
         if current_pos < 0 or current_pos >= len(instructions):
             break
 
+        if count % 1000000 == 0:
+            print count, registers
+
+        count += 1
+
+    print count
     return mul_times
 
 
