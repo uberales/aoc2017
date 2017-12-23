@@ -195,7 +195,7 @@ def Play2(registers, instructions):
     while True:
         instruction = instructions[current_pos]
 
-        print (current_pos, instruction, registers)
+        #print (current_pos, instruction, registers)
         history.append((current_pos, instruction, registers.copy()))
 #        history.append((current_pos))
 
@@ -265,7 +265,7 @@ def main():
     #registers = {"a": 1, "b": 125400, "c": 125400, "d": 125383, "e": 125383, "f": 0, "g": -17, "h": 1000}
 
     task_b = Play2(registers, instructions)
-    print task_b, registers["h"]
+    print task_b, registers
 
 if __name__ == "__main__":
     main()
