@@ -218,17 +218,17 @@ def Play2(registers, instructions):
             mul_times += 1
         elif code == 'jnz':
 
-            #skip_params = CheckHistory(total_record, history)
+            skip_params = CheckHistory(total_record, history)
 
-            #if not skip_params[0] == 0:
-            #    for r in registers:
-            #        registers[r] = skip_params[1][r]
-            #    instruction = skip_params[3]
-            #    current_pos = skip_params[2] + 1
+            if not skip_params[0] == 0:
+                for r in registers:
+                    registers[r] = skip_params[1][r]
+                instruction = skip_params[3]
+                current_pos = skip_params[2] + 1
 
                 #print 'skipped', skip_params[0]
                 #print 'jumping to', (current_pos, instruction, registers.copy())
-            #    total_record.append([(current_pos, instruction, registers.copy())])
+                #total_record.append([(current_pos, instruction, registers.copy())])
             history = []
 
             val_x = GetValue(registers, instruction[1])
