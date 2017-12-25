@@ -76,19 +76,8 @@ def Machine():
     h = 0
 
     for b in range(108400, 125400 + 1, 17):
-        f = 1
-        if IsPrime(b):
-            print 'prime number', b
-            continue
-        for d in range(2, b + 1):
-            e = 2
-            for e in range(2, int(b / d) + 1):
-                if d * e == b:
-                    f = 0
-                    break
-        if f == 0:
+        if not IsPrime(b):
             h += 1
-            print h, b
 
     print 'done', h
 
